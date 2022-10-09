@@ -3,6 +3,7 @@ import "./App.css";
 import { TodoCounter } from "./components/TodoCounter";
 import { TodoSearch } from "./components/TodoSearch";
 import { TodoList } from "./components/TodoList";
+import { TodoItem } from "./components/TodoItem";
 const todos = [
 	{ text: "Cortar cebolla", completed: false },
 	{ text: "Tomar el curso de intro a React", completed: false },
@@ -16,8 +17,10 @@ function App() {
 			<TodoCounter />
 			<TodoSearch />
 			<TodoList>
-        
-      </TodoList>
+				{todos.map((todo) => (
+					<TodoItem />
+				))}
+			</TodoList>
 			{/*
 		
 			<TodoList>
