@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+import { TodoCounter } from "./components/TodoCounter";
 const todos=[
   {text:'Cortar cebolla', completed: false},
   {text:'Tomar el curso de intro a React', completed: false},
@@ -10,7 +11,8 @@ const todos=[
 function App() {
 	return (
 		<>
-			{/* <TodoCounter></TodoCounter>
+    <TodoCounter/>
+			{/*
 			<TodoSearch></TodoSearch>
 			<TodoList>
 				todos.map(todo=><TodoItem />)
