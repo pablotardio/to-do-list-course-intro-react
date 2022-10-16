@@ -1,0 +1,23 @@
+.button-circled {
+    border-radius: 26px;
+    background-color: var(--primary-red) ;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    color: white;
+    height: 3rem;
+    width: 3rem;
+    cursor: pointer;
+    font-size: large;
+    
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    box-shadow: 0 2px 4px rgb(79, 47, 47);
+    border-style: none;
+    transition: all 0.2s ease;
+}
+.button-circled:active{
+    background-color: var(--secondary-red);
+    box-shadow: 0 0 2px rgb(79, 47, 47);
+    
+}
+
