@@ -1,12 +1,12 @@
 import React from "react";
 import './TodoItem.css'
-export const TodoItem = ({ completed ,text, onComplete}) => {
+export const TodoItem = ({ completed ,text, onComplete,onDelete}) => {
 	const handlers={
 		complete:()=>{
 			onComplete(text)
 		},
 		delete:()=>{
-			alert(`se borrara la tarea ${text}`)
+			onDelete(text)
 
 		}
 	}

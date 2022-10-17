@@ -32,6 +32,9 @@ function App() {
 			newTodos[indexToComplete].completed=true
 			setTodos(newTodos)
 		},
+		deleteTodo:(text)=>{
+			setTodos(todos.filter(todo=>todo.text!==text))
+		}
 	};
 	return (
 		<>
@@ -42,7 +45,7 @@ function App() {
 			/>
 			<TodoList>
 				{todos.map((todo) => (
-					<TodoItem {...todo} onComplete={handlers.completeTodo} />
+					<TodoItem {...todo} onComplete={handlers.completeTodo} onDelete={handlers.deleteTodo}/>
 				))}
 			</TodoList>
 			<CreateTodoButton />
