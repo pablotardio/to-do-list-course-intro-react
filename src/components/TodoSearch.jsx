@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './TodoSearch.css'
 export const TodoSearch = () => {
+  const [searchText, setSearchText] = useState('')
+  const handlers={
+    changeSearch:(e)=>{
+      setSearchText(e.target.value)
+    }
+  }
   return (
-    <input className='TodoSearch' placeholder='holaCebolla'/>
+    <input value={searchText} onChange={handlers.changeSearch} className='TodoSearch' placeholder='holaCebolla'/>
   )
 }
