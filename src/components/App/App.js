@@ -13,34 +13,41 @@ const localStorageVariables = {
 
 const useLocalStorage = (itemName, initialValue) => {
 	const [item, setItem] = useState(initialValue);
-	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		setTimeout(()=>{
-
-			let localStorageItem = localStorage.getItem(itemName);
-			let parsedItem;
-			if (!localStorageItem) {
-				localStorage.setItem(itemName, JSON.stringify(initialValue));
-				parsedItem = [];
-			} else {
-				parsedItem = JSON.parse(localStorageItem);
-			
+		setTimeout(() => {
+			try {
+				let localStorageItem = localStorage.getItem(itemName);
+				let parsedItem;
+				if (!localStorageItem) {
+					localStorage.setItem(itemName, JSON.stringify(initialValue));
+					parsedItem = [];
+				} else {
+					parsedItem = JSON.parse(localStorageItem);
+				}
+				setItem(parsedItem);
+				setLoading(false);
+			} catch (error) {
+				setError(error);
 			}
-			setItem(parsedItem)
-			setLoading(false)
-		},1000)
-		  // eslint-disable-next-line react-hooks/exhaustive-deps
-	},[]);
+		}, 1000);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	/**
-		 * Saves todos in the state and local storage
-		 * @param {*} newTodos
-		 */
-	 const saveItem = (newTodos) => {
-		setItem(newTodos);
-		localStorage.setItem(itemName, JSON.stringify(newTodos));
+	 * Saves todos in the state and local storage
+	 * @param {*} newTodos
+	 */
+	const saveItem = (newTodos) => {
+		try {
+			setItem(newTodos);
+			localStorage.setItem(itemName, JSON.stringify(newTodos));
+		} catch (error) {
+			setError(error)
+		}
 	};
-	return {item, saveItem,loading};
+	return { item, saveItem, loading, error };
 };
 function App() {
 	const [todos, saveTodos] = useLocalStorage(
