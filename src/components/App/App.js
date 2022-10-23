@@ -1,13 +1,25 @@
 import { useState } from "react";
 import AppUI from "./AppUI";
-const defaultTodos = [
+const initialTodos = [
 	{ text: "Cortar cebolla", completed: false },
 	{ text: "Tomar el curso de intro a React", completed: false },
 	{ text: "Llorar con la llorona", completed: false },
 	{ text: "Cortar a la llorona", completed: false },
 ];
 
+const localStorageVariables = {
+	TODOS_V1: "todos_v1",
+};
 function App() {
+	let localStorageTodos = localStorage.getItem(localStorageVariables.TODOS_V1);
+	let defaultTodos;
+	if (!localStorageTodos) {
+		localStorage.setItem(localStorageVariables.TODOS_V1, JSON.stringify([]));
+		defaultTodos = [];
+	} else {
+		defaultTodos = JSON.parse(localStorageTodos);
+	}
+
 	const [searchValue, setSearchValue] = useState("");
 	const [todos, setTodos] = useState(defaultTodos);
 	const handlers = {
