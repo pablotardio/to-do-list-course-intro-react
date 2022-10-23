@@ -5,7 +5,7 @@ import { TodoSearch } from "../TodoSearch/index";
 import { TodoList } from "../TodoList/index";
 import { TodoItem } from "../TodoItem/index";
 import { CreateTodoButton } from "../CreateTodoButton/index";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { TodoContext } from "../../context/TodoContext";
 const defaultTodos = [
 	{ text: "Cortar cebolla", completed: false },
@@ -15,13 +15,14 @@ const defaultTodos = [
 ];
 
 function AppUI() {
+	const { searchValue, handlers, todos, loading, error } =
+		useContext(TodoContext);
 	return (
 		<>
 			<TodoCounter />
 			<TodoSearch />
 
-			<TodoContext.Consumer>
-				{({loading,error,todos,handlers}) => (
+		
 					<TodoList>
 						{loading && <p>Estamos cargando... </p>}
 						{error && <p>Hubo un error </p>}
@@ -34,8 +35,6 @@ function AppUI() {
 							/>
 						))}
 					</TodoList>
-				)}
-			</TodoContext.Consumer>
 			<CreateTodoButton />
 		</>
 	);
