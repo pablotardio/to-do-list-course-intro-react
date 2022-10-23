@@ -20,6 +20,7 @@ export const TodoContextProvider = ({ children }) => {
 		error,
 	} = useLocalStorage(localStorageVariables.TODOS_V1, []);
 	const [searchValue, setSearchValue] = useState("");
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const handlers = {
 		search: (val) => {
 			setSearchValue(val);
@@ -28,6 +29,13 @@ export const TodoContextProvider = ({ children }) => {
 					todo.text.toLowerCase().includes(val.toLowerCase())
 				)
 			);
+		},
+		openCreateTodo:()=>{
+			setIsModalOpen(true)
+		},
+		
+		cancelCreateTodo:()=>{
+			setIsModalOpen(false)
 		},
 		completeTodo: (text) => {
 			console.log(text);
@@ -51,7 +59,9 @@ export const TodoContextProvider = ({ children }) => {
 				loading,
 				error,
                 completedTodos:todos.filter((todo)=>(todo.completed)).length,
-                totalTodos:todos.length
+                totalTodos:todos.length,
+				isModalOpen
+				
 			}}
 		>
 			{children}

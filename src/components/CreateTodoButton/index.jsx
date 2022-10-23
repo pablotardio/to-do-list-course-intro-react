@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TodoContext } from "../../context/TodoContext";
 import './CreateTodoButton.css'
 export const CreateTodoButton = () => {
+	const { handlers:{
+		openCreateTodo,
+		cancelCreateTodo
+	} } = useContext(TodoContext);
+
 	const handlers={
 		clickButton:()=>{
-			alert('esto deberia mostrar un modal')
+			openCreateTodo()
 		}
 	}
-	return <button onClick={handlers.clickButton} className="button-circled">+</button>;
+	return <button onClick={handlers.clickButton} className="CreateTodoButton">+</button>;
 };
