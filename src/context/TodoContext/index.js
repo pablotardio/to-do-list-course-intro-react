@@ -50,6 +50,8 @@ export const TodoContextProvider = ({ children }) => {
 				todos,
 				loading,
 				error,
+                completedTodos:todos.filter((todo)=>(todo.completed)).length,
+                totalTodos:todos.length
 			}}
 		>
 			{children}
