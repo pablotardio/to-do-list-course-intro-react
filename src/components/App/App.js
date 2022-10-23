@@ -10,23 +10,40 @@ const initialTodos = [
 const localStorageVariables = {
 	TODOS_V1: "todos_v1",
 };
-function App() {
-	let localStorageTodos = localStorage.getItem(localStorageVariables.TODOS_V1);
-	let defaultTodos;
-	if (!localStorageTodos) {
-		localStorage.setItem(localStorageVariables.TODOS_V1, JSON.stringify([]));
-		defaultTodos = [];
-	} else {
-		defaultTodos = JSON.parse(localStorageTodos);
-	}
 
+const useLocalStorage=(itemName,initialValue)=>{
+	
+
+	let localStorageItem = localStorage.getItem(itemName);
+	let parsedItem;
+	if (!localStorageItem) {
+		localStorage.setItem(itemName, JSON.stringify(initialValue));
+		parsedItem = [];
+	} else {
+		parsedItem = JSON.parse(localStorageItem);
+	}
+	const [item, setItem] = useState(parsedItem);
+	/**
+	 * Saves todos in the state and local storage
+	 * @param {*} newTodos 
+	 */
+	const saveItem = (newTodos) => { 
+		setItem(newTodos);
+		localStorage.setItem(itemName,JSON.stringify(newTodos))
+
+	 }
+	 return [
+		 item, saveItem
+	 ]
+}
+function App() {
+	const [todos,saveTodos]=useLocalStorage(localStorageVariables.TODOS_V1,[])
 	const [searchValue, setSearchValue] = useState("");
-	const [todos, setTodos] = useState(defaultTodos);
 	const handlers = {
 		search: (val) => {
 			setSearchValue(val);
-			setTodos(
-				defaultTodos.filter((todo) =>
+			saveTodos(
+				initialTodos.filter((todo) =>
 					todo.text.toLowerCase().includes(val.toLowerCase())
 				)
 			);
@@ -38,10 +55,10 @@ function App() {
 			);
 			const newTodos = [...todos];
 			newTodos[indexToComplete].completed = true;
-			setTodos(newTodos);
+			saveTodos(newTodos);
 		},
 		deleteTodo: (text) => {
-			setTodos(todos.filter((todo) => todo.text !== text));
+			saveTodos(todos.filter((todo) => todo.text !== text));
 		},
 	};
 	return (
