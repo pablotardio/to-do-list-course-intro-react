@@ -13,7 +13,7 @@ const defaultTodos = [
 	{ text: "Cortar a la llorona", completed: false },
 ];
 
-function AppUI({ searchValue, handlers, todos }) {
+function AppUI({ searchValue, handlers, todos, loading, error }) {
 	return (
 		<>
 			<TodoCounter />
@@ -21,7 +21,11 @@ function AppUI({ searchValue, handlers, todos }) {
 				searchValue={searchValue}
 				setSearchValue={handlers.search}
 			/>
+
 			<TodoList>
+				{loading && <p>Estamos cargando... </p>}
+				{error && <p>Hubo un error </p>}
+				{!loading && !todos.lenght && <p>crea tu primerTodo </p>}
 				{todos.map((todo) => (
 					<TodoItem
 						{...todo}

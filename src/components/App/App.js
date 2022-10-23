@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppUI from "./AppUI";
 const initialTodos = [
 	{ text: "Cortar cebolla", completed: false },
@@ -11,33 +11,42 @@ const localStorageVariables = {
 	TODOS_V1: "todos_v1",
 };
 
-const useLocalStorage=(itemName,initialValue)=>{
-	
+const useLocalStorage = (itemName, initialValue) => {
+	const [item, setItem] = useState(initialValue);
+	const [loading, setLoading] = useState(true)
 
-	let localStorageItem = localStorage.getItem(itemName);
-	let parsedItem;
-	if (!localStorageItem) {
-		localStorage.setItem(itemName, JSON.stringify(initialValue));
-		parsedItem = [];
-	} else {
-		parsedItem = JSON.parse(localStorageItem);
-	}
-	const [item, setItem] = useState(parsedItem);
+	useEffect(() => {
+		setTimeout(()=>{
+
+			let localStorageItem = localStorage.getItem(itemName);
+			let parsedItem;
+			if (!localStorageItem) {
+				localStorage.setItem(itemName, JSON.stringify(initialValue));
+				parsedItem = [];
+			} else {
+				parsedItem = JSON.parse(localStorageItem);
+			
+			}
+			setItem(parsedItem)
+			setLoading(false)
+		},1000)
+		  // eslint-disable-next-line react-hooks/exhaustive-deps
+	},[]);
 	/**
-	 * Saves todos in the state and local storage
-	 * @param {*} newTodos 
-	 */
-	const saveItem = (newTodos) => { 
+		 * Saves todos in the state and local storage
+		 * @param {*} newTodos
+		 */
+	 const saveItem = (newTodos) => {
 		setItem(newTodos);
-		localStorage.setItem(itemName,JSON.stringify(newTodos))
-
-	 }
-	 return [
-		 item, saveItem
-	 ]
-}
+		localStorage.setItem(itemName, JSON.stringify(newTodos));
+	};
+	return {item, saveItem,loading};
+};
 function App() {
-	const [todos,saveTodos]=useLocalStorage(localStorageVariables.TODOS_V1,[])
+	const [todos, saveTodos] = useLocalStorage(
+		localStorageVariables.TODOS_V1,
+		[]
+	);
 	const [searchValue, setSearchValue] = useState("");
 	const handlers = {
 		search: (val) => {
