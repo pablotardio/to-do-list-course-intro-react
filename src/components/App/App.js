@@ -50,7 +50,7 @@ const useLocalStorage = (itemName, initialValue) => {
 	return { item, saveItem, loading, error };
 };
 function App() {
-	const [todos, saveTodos] = useLocalStorage(
+	const {item:todos,saveItem:saveTodos,loading,error} = useLocalStorage(
 		localStorageVariables.TODOS_V1,
 		[]
 	);
@@ -79,7 +79,7 @@ function App() {
 	};
 	return (
 		<>
-			<AppUI searchValue={searchValue} handlers={handlers} todos={todos} />
+			<AppUI searchValue={searchValue} handlers={handlers} todos={todos} loading={ loading} error={error} />
 		</>
 	);
 }
