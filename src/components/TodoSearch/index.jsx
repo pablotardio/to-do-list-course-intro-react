@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { TodoContext } from '../../context/TodoContext';
 import './TodoSearch.css'
-export const TodoSearch = ({searchValue, setSearchValue}) => {
+export const TodoSearch = () => {
+  const {  searchValue ,handlers:{search}} =
+		useContext(TodoContext);
   const handlers={
     changeSearch:(e)=>{
-      setSearchValue(e.target.value)
+      search(e.target.value)
     }
   }
   return (

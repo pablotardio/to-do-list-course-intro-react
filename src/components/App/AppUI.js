@@ -15,7 +15,7 @@ const defaultTodos = [
 ];
 
 function AppUI() {
-	const { searchValue, handlers, todos, loading, error } =
+	const { handlers, todos, loading, error } =
 		useContext(TodoContext);
 	return (
 		<>
