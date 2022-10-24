@@ -1,5 +1,8 @@
 import React from "react";
 import './TodoItem.css'
+import {BsFillTrashFill} from 'react-icons'
+import { DeleteIcon } from "../icons/DeleteIcon";
+import { CompleteIcon } from "../icons/CompleteIcon";
 export const TodoItem = ({ completed ,text, onComplete,onDelete}) => {
 	const handlers={
 		complete:()=>{
@@ -13,15 +16,12 @@ export const TodoItem = ({ completed ,text, onComplete,onDelete}) => {
 	return (
 		(
 			<li className="TodoItem">
-			  <span onClick={handlers.complete} className={`Icon Icon-check ${completed && 'Icon-check--active'}`}>
-				√
-			  </span>
+				<CompleteIcon onComplete={handlers.complete} color={completed?'green':'gray'}/>
 			  <p  className={`TodoItem-p ${completed && 'TodoItem-p--complete'}`}>
 				{text}
 			  </p>
-			  <span onClick={handlers.delete} className="Icon Icon-delete">
-				X
-			  </span>
+			  <DeleteIcon onDelete={handlers.delete}/>
+			  
 			</li>
 		  )
 	);
