@@ -37,6 +37,12 @@ export const TodoContextProvider = ({ children }) => {
 		cancelCreateTodo:()=>{
 			setIsModalOpen(false)
 		},
+		addTodo:(newTodoText)=>{
+			console.log(newTodoText);
+			const newTodoData={ text: newTodoText, completed: false }
+			
+			saveTodos([...todos,newTodoData])
+		},
 		completeTodo: (text) => {
 			console.log(text);
 			const indexToComplete = todos.findIndex((todo) =>
