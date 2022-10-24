@@ -8,6 +8,7 @@ import { CreateTodoButton } from "../CreateTodoButton/index";
 import { useContext, useState } from "react";
 import { TodoContext } from "../../context/TodoContext";
 import { Modal } from "../Modal";
+import { TodoForm } from "../TodoForm";
 const defaultTodos = [
 	{ text: "Cortar cebolla", completed: false },
 	{ text: "Tomar el curso de intro a React", completed: false },
@@ -33,7 +34,7 @@ function AppUI() {
 					/>
 				))}
 			</TodoList>{" "}
-			{isModalOpen&&<Modal >{todos[0]?.text}</Modal>}
+			{isModalOpen&&<Modal ><TodoForm/></Modal>}
 			<CreateTodoButton />
 		</>
 	);
