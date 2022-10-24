@@ -1,4 +1,6 @@
 import React from "react";
+import { CompleteIcon } from "../../icons/CompleteIcon";
+import { DeleteIcon } from "../../icons/DeleteIcon";
 import './TodoItemLoading.css'
 export const TodoItemLoading = ({ completed ,text, onComplete,onDelete}) => {
 	const handlers={
@@ -13,15 +15,11 @@ export const TodoItemLoading = ({ completed ,text, onComplete,onDelete}) => {
 	return (
 		(
 			<li className="TodoItemLoading">
-			  <span onClick={handlers.complete} className={`Icon Icon-check ${completed && 'Icon-check--active'}`}>
-				√
-			  </span>
+			  <CompleteIcon onComplete={handlers.complete} color={completed?'green':'gray'}/>
 			  <p  className={`TodoItemLoading-p ${completed && 'TodoItemLoading-p--complete'}`}>
 				Cargando...
 			  </p>
-			  <span onClick={handlers.delete} className="Icon Icon-delete">
-				X
-			  </span>
+			  <DeleteIcon onDelete={handlers.delete}/>
 			</li>
 		  )
 	);
