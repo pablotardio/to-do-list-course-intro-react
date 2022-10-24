@@ -9,6 +9,7 @@ import { useContext, useState } from "react";
 import { TodoContext } from "../../context/TodoContext";
 import { Modal } from "../Modal";
 import { TodoForm } from "../TodoForm";
+import { TodoItemLoading } from "../loading/TodoItemLoading";
 const defaultTodos = [
 	{ text: "Cortar cebolla", completed: false },
 	{ text: "Tomar el curso de intro a React", completed: false },
@@ -17,15 +18,16 @@ const defaultTodos = [
 ];
 
 function AppUI() {
-	const { handlers, todos, loading, error,isModalOpen } = useContext(TodoContext);
+	const { handlers, todos, loading, error, isModalOpen } =
+		useContext(TodoContext);
 	return (
 		<>
 			<TodoCounter />
 			<TodoSearch />
 			<TodoList>
-				{loading && <p>Estamos cargando... </p>}
+				{loading && new Array(2).fill(1).map((item=><TodoItemLoading/>))}
 				{error && <p>Hubo un error </p>}
-				{!loading && !todos.lenght && <p>crea tu primerTodo </p>}
+				{!loading && !todos.length && <p>crea tu primerTodo </p>}
 				{todos.map((todo) => (
 					<TodoItem
 						{...todo}
@@ -34,7 +36,11 @@ function AppUI() {
 					/>
 				))}
 			</TodoList>{" "}
-			{isModalOpen&&<Modal ><TodoForm/></Modal>}
+			{isModalOpen && (
+				<Modal>
+					<TodoForm />
+				</Modal>
+			)}
 			<CreateTodoButton />
 		</>
 	);
